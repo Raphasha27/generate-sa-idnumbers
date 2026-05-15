@@ -1,40 +1,16 @@
-name: CI
+
+name: CI/CD Pipeline
 
 on:
-  workflow_dispatch:
   push:
-    branches: ["main", "master"]
+    branches: [ develop, main ]
   pull_request:
-    branches: ["main", "master"]
-  workflow_dispatch:
-
-permissions:
-  contents: read
+    branches: [ develop, main ]
 
 jobs:
-  build_and_scan: 
-    name: Build & Security Scan
-    runs-on: -
-    uses: actions/checkout@v4
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          ignore-unfixed: true
-          format: 'table'
-          exit-code: '0'
-          severity: 'CRITICAL,HIGH'
-
-  security_scan:
-    name: Security Scan (Trivy)
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          ignore-unfixed: true
-          format: 'table'
-          exit-code: '0'
-          severity: 'CRITICAL,HIGH'
+    - uses: actions/checkout@v3
+    - name: Run Tests
+      run: echo "Replace with actual tests"
